@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@import "bootstrap-icons/font/bootstrap-icons.css";
+body { background: #181818; color: #fff; }
+
+.apexcharts-tooltip {
+  background: #000 !important;
+  color: #fff !important; 
+}
+
+.apexcharts-tooltip-title {
+  background: #000 !important;     
+  color: #fff !important;           
+  border: none !important;
+}

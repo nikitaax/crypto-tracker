@@ -1,1 +1,78 @@
-<p>crypto-details works!</p>
+@if(coin){
+<div class="container py-5">
+  <div class="mb-4">
+    <a routerLink="/" class="btn btn-outline-light">
+      <i class="bi bi-arrow-left"></i> Go Back to Home Page
+    </a>
+  </div>
+  <div class="row justify-content-center">
+    <div class="card-body text-center">
+      <img
+        [src]="coin.image.large"
+        [alt]="coin.name"
+        width="100"
+        height="100"
+        class="mb-3"
+      />
+
+      <h2 class="card-title">{{ coin.name }} ({{ coin.symbol }})</h2>
+      <button class="btn btn-warning mb-3" (click)="addToWatchlist()">
+        <i class="bi bi-star"></i> Add to Watchlist
+      </button>
+      <p class="card-text mb-4">
+        {{ coin.description.en }}
+      </p>
+      <ul class="list-group list-group-flush bg-dark">
+        <li
+          class="list-group-item bg-dark text-light d-flex justify-content-between align-items-center"
+        >
+          <span>Current Price</span>
+          <span class="fw-bold">{{
+            coin.market_data.current_price.usd | currency : "USD"
+          }}</span>
+        </li>
+        <li
+          class="list-group-item bg-dark text-light d-flex justify-content-between align-items-center"
+        >
+          <span>Market Cap</span>
+          <span class="fw-bold">{{
+            coin.market_data.market_cap.usd | currency : "USD"
+          }}</span>
+        </li>
+        <li
+          class="list-group-item bg-dark text-light d-flex justify-content-between align-items-center"
+        >
+          <span>24h Change</span>
+          <span
+            [ngClass]="{
+              'text-success': coin.market_data.price_change_percentage_24h > 0,
+              'text-danger': coin.market_data.price_change_percentage_24h < 0
+            }"
+          >
+            {{
+              coin.market_data.price_change_percentage_24h | percent : "1.2-2"
+            }}
+          </span>
+        </li>
+      </ul>
+      <div class="my-4 bg-dark rounded p-3">
+        @if(chartOptions){
+        <apx-chart
+          [series]="chartOptions.series!"
+          [chart]="chartOptions.chart!"
+          [xaxis]="chartOptions.xaxis!"
+          [yaxis]="chartOptions.yaxis!"
+          [title]="chartOptions.title!"
+        ></apx-chart
+        >}
+      </div>
+    </div>
+  </div>
+</div>
+} @else {
+<div class="container text-center py-5">
+  <div class="spinner-border text-light" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+}
