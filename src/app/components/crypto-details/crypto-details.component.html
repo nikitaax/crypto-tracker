@@ -16,9 +16,15 @@
       />
 
       <h2 class="card-title">{{ coin.name }} ({{ coin.symbol }})</h2>
-      <button class="btn btn-warning mb-3" (click)="addToWatchlist()">
-        <i class="bi bi-star"></i> Add to Watchlist
-      </button>
+      <div class="text-end">
+        <button
+          class="btn btn-primary mb-3"
+          mat-raised-button
+          (click)="openModal()"
+        >
+          <i class="bi bi-star"></i> Add to Watchlist
+        </button>
+      </div>
       <p class="card-text mb-4">
         {{ coin.description.en }}
       </p>

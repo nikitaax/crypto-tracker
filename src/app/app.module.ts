@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeModule } from './components/home/home.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -22,10 +24,13 @@ import { HomeModule } from './components/home/home.module';
     RouterModule,
     HttpClientModule, 
     CommonModule,
-    HomeModule
+    HomeModule,
+    MatDialogModule 
     // ReactiveFormsModule
 ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

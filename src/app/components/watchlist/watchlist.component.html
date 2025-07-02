@@ -13,6 +13,7 @@
     <tr>
       <th scope="col"></th>
       <th scope="col">Name</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody class="text-center">
@@ -28,6 +29,15 @@
         />
       </td>
       <td>{{ coin.name }}</td>
+      <td>
+        <button
+          class="btn btn-danger"
+          mat-raised-button
+          (click)="remove(coin.id)"
+        >
+          <i class="bi bi-trash"></i> Remove
+        </button>
+      </td>
     </tr>
     }
   </tbody>

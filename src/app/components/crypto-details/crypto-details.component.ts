@@ -11,6 +11,9 @@ import {
   ApexYAxis,
 } from 'ng-apexcharts';
 import { WatchlistService } from 'src/app/service/watchlist.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { WatchlistModalComponent } from 'src/app/watchlist-modal/watchlist-modal.component';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -24,7 +27,7 @@ export type ChartOptions = {
 @Component({
   selector: 'app-crypto-details',
   templateUrl: './crypto-details.component.html',
-  styleUrl: './crypto-details.component.scss',
+  styleUrls: ['./crypto-details.component.scss'],
 })
 export class CryptoDetailsComponent implements OnInit {
   coinId: string | null = null;
@@ -34,7 +37,9 @@ export class CryptoDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private cryptoService: CryptoApiService,
-     private watchlistService: WatchlistService
+    private watchlistService: WatchlistService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -98,10 +103,35 @@ export class CryptoDetailsComponent implements OnInit {
         };
       });
   }
-  
+
   addToWatchlist() {
     if (this.coin) {
       this.watchlistService.addToWatchlist(this.coin.id);
     }
+  }
+
+  openModal() {
+    const dialogRef = this.dialog.open(WatchlistModalComponent, {
+      width: '400px',
+      panelClass: 'blue-black-modal',
+      data: {
+        title: 'Add to Watchlist',
+        message: `Do you want to add ${this.coin?.name} to your watchlist?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.addToWatchlist();
+        this.snackBar.open(
+          `${this.coin?.name} added to your watchlist!`,
+          'Close',
+          {
+            duration: 3000,
+            panelClass: ['snackbar-dark'], // Optional: for dark theme
+          }
+        );
+      }
+    });
   }
 }

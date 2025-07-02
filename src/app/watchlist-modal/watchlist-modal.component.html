@@ -1,0 +1,11 @@
+<div class="blue-black-modal">
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+  <mat-dialog-content>
+    <p>{{ data.message }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true">Confirm</button>
+    <span style="width: 16px; display: inline-block"></span>
+    <button mat-button (click)="onCloseClick()">Close</button>
+  </mat-dialog-actions>
+</div>
